@@ -20,6 +20,17 @@ contract Fonkybat is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         require(success, "Address: unable to send value, recipient may have reverted");
     }
     
+    interface IERC165 {
+    /**
+     * @dev Returns true if this contract implements the interface defined by
+     * `interfaceId`. See the corresponding
+     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]
+     * to learn more about how these ids are created.
+     *
+     * This function call must use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
+}
     function _baseURI() internal pure override returns (string memory) {
         return "http://";
     }
