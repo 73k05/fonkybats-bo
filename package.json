@@ -1,0 +1,23 @@
+{
+  "name": "fonkybats",
+  "version": "1.0.0",
+  "description": "FonkyBats's smart contracts, including ERC721 templates, factories, and the storefront builder.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/73k05/fonkybats-nft-bo.git"
+  },
+  "author": "https://github.com/73k05",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/73k05/fonkybats-nft-bo/issues"
+  },
+  "homepage": "https://fonkybats.com/",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.3.2",
+    "truffle-hdwallet-provider": "^1.0.17"
+  },
+  "devDependencies": {
+    "eslint": "^8.1.0",
+    "truffle-plugin-verify": "^0.5.15"
+  }
+}
