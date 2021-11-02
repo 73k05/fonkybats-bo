@@ -1,0 +1,6 @@
+# IDE Config files
+.idea
+
+# Build & libs
+node_modules/
+build/
