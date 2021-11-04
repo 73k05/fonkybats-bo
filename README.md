@@ -13,6 +13,8 @@ truffle compile #Compile contracts
 export ALCHEMY_KEY="pXVRmm1TsgoZMNJGcG0zoiqPQJODSDvd";export MNEMONIC="casual normal diesel wrist okay quit figure blame output height pause veteran";export NETWORK="rinkeby"; DEPLOY_FONKYBATS=1 truffle migrate --network rinkeby #Deploy contracts on Rinkeby
 ```
 
+You can use the `--reset` option to run all your migrations from the beginning
+
 ## Test Keys Config
 ### Mnemonic
 ```casual normal diesel wrist okay quit figure blame output height pause veteran```
