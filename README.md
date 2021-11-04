@@ -14,10 +14,3 @@ export ALCHEMY_KEY="pXVRmm1TsgoZMNJGcG0zoiqPQJODSDvd";export MNEMONIC="casual no
 ```
 
 You can use the `--reset` option to run all your migrations from the beginning
-
-## Test Keys Config
-### Mnemonic
-```casual normal diesel wrist okay quit figure blame output height pause veteran```
-
-### MetaPass
-```?9@Zw?RD%z662GxL```
