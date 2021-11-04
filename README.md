@@ -10,13 +10,7 @@ brew install nvm #Install nvm Node Version Manager
 nvm install 16
 nvm use 16
 truffle compile #Compile contracts
-export ALCHEMY_KEY="pXVRmm1TsgoZMNJGcG0zoiqPQJODSDvd";export MNEMONIC="casual normal diesel wrist okay quit figure blame output height pause veteran";export NETWORK="rinkeby"; DEPLOY_CREATURES_SALE=1 truffle migrate --network rinkeby #Deploy contracts on Rinkeby
-```
-### Deploy With Yarn (node v12.22.7)
-```
-yarn install
-export ALCHEMY_KEY="pXVRmm1TsgoZMNJGcG0zoiqPQJODSDvd";export MNEMONIC="casual normal diesel wrist okay quit figure blame output height pause veteran";export NETWORK="rinkeby"
-DEPLOY_CREATURES_SALE=1 yarn truffle deploy --network rinkeby
+export ALCHEMY_KEY="pXVRmm1TsgoZMNJGcG0zoiqPQJODSDvd";export MNEMONIC="casual normal diesel wrist okay quit figure blame output height pause veteran";export NETWORK="rinkeby"; DEPLOY_FONKYBATS=1 truffle migrate --network rinkeby #Deploy contracts on Rinkeby
 ```
 
 ## Test Keys Config
