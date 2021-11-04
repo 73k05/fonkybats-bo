@@ -7,7 +7,7 @@ contract FonkyBat is ERC721Tradable {
     constructor(address _proxyRegistryAddress) ERC721Tradable("FonkyBats", "HRE", _proxyRegistryAddress) public {}
 
     function baseTokenURI() override public pure returns (string memory) {
-        return "127.0.0.1/api/fonkybats/";
+        return "https://fonkybats.com/metadata-api/";
     }
 
     function contractURI() public pure returns (string memory) {
