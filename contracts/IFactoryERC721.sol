@@ -19,15 +19,10 @@ interface FactoryERC721 {
     function symbol() external view returns (string memory);
 
     /**
-     * Number of options the factory supports.
-     */
-    function numOptions() external view returns (uint256);
-
-    /**
      * @dev Returns whether the option ID can be minted. Can return false if the developer wishes to
      * restrict a total supply per option ID (or overall).
      */
-    function canMint(uint256 _optionId) external view returns (bool);
+    function canMint(uint256 _numberFonkyBatsToMint) external view returns (bool);
 
     /**
      * @dev Returns a URL specifying some metadata about the option. This metadata can be of the
@@ -44,8 +39,8 @@ interface FactoryERC721 {
      * @dev Mints asset(s) in accordance to a specific address with a particular "option". This should be
      * callable only by the contract owner or the owner's Wyvern Proxy (later universal login will solve this).
      * Options should also be delineated 0 - (numOptions() - 1) for convenient indexing.
-     * @param _optionId the option id
+     * @param _numberFonkyBatsToMint number of NFTs to mint
      * @param _toAddress address of the future owner of the asset(s)
      */
-    function mint(uint256 _optionId, address _toAddress) external;
+    function mint(uint256 _numberFonkyBatsToMint, address _toAddress) external;
 }

@@ -4,3 +4,5 @@
 # Build & libs
 node_modules/
 build/
+
+credentials.conf
