@@ -35,7 +35,7 @@ contract FonkyBatFactory is FactoryERC721, Ownable {
     }
 
     function name() override external pure returns (string memory) {
-        return "OpenSeaFonkybat Item Sale";
+        return "Fonkybat Item Sale";
     }
 
     function symbol() override external pure returns (string memory) {

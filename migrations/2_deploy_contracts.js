@@ -1,5 +1,5 @@
 const FonkyBat = artifacts.require("./FonkyBat.sol");
-const FonkyBatFactory = artifacts.require("./FonkyBatFactory.sol");
+// const FonkyBatFactory = artifacts.require("./FonkyBatFactory.sol");
 
 // If you want to hardcode what deploys, comment out process.env.X and use
 // true/false;
@@ -8,7 +8,7 @@ const DEPLOY_ALL = process.env.DEPLOY_ALL;
 // Note that we will default to this unless DEPLOY_ACCESSORIES is set.
 // This is to keep the historical behavior of this migration.
 const DEPLOY_FONKYBATS = process.env.DEPLOY_FONKYBATS || DEPLOY_ALL;
-const DEPLOY_FONKYBATS_SALE = process.env.DEPLOY_FONKYBATS_SALE || DEPLOY_ALL;
+// const DEPLOY_FONKYBATS_SALE = process.env.DEPLOY_FONKYBATS_SALE || DEPLOY_ALL;
 
 module.exports = async (deployer, network) => {
   // OpenSea proxy registry addresses for rinkeby and mainnet. Whitelist the proxy accounts of OpenSea users
@@ -25,10 +25,10 @@ module.exports = async (deployer, network) => {
     await deployer.deploy(FonkyBat, proxyRegistryAddress, {gas: 5000000});
   }
 
-  //Factory secondary contract allowing pre-sale and OTA minting
-  if (DEPLOY_FONKYBATS_SALE) {
-    await deployer.deploy(FonkyBatFactory, proxyRegistryAddress, FonkyBat.address, {gas: 7000000});
-    const fonkybat = await FonkyBat.deployed();
-    await fonkybat.transferOwnership(FonkyBatFactory.address);
-  }
+  // //Factory secondary contract allowing pre-sale and OTA minting
+  // if (DEPLOY_FONKYBATS_SALE) {
+  //   await deployer.deploy(FonkyBatFactory, proxyRegistryAddress, FonkyBat.address, {gas: 7000000});
+  //   const fonkybat = await FonkyBat.deployed();
+  //   await fonkybat.transferOwnership(FonkyBatFactory.address);
+  // }
 };
