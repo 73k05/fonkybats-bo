@@ -26,14 +26,21 @@ abstract contract ERC721Tradable is ContextMixin, ERC721Enumerable, NativeMetaTr
     enum SaleState {Inactive, PreOrder, Sale}
     struct PreOrderPlan {
         uint price;
-        uint amount;
+        uint amountMax;
     }
 
     SaleState public saleState;
+    uint public mintPrice;
     uint public preOrdersCount;
+    uint public maxNFTPerMint;
+    uint public maxSupply;
+    uint public tradeSupply;
+
+    uint private mintedNFTs;
+    uint private tokensSupply;
 
     uint constant public TOKEN_ID = 0;
-    uint constant public MAX_PREORDERS = 200;
+    uint constant public MAX_PREORDERS = 500;
 
     using SafeMath for uint256;
 
@@ -50,17 +57,25 @@ abstract contract ERC721Tradable is ContextMixin, ERC721Enumerable, NativeMetaTr
         proxyRegistryAddress = _proxyRegistryAddress;
         _initializeEIP712(_name);
 
-        preOrderPlans[1] = PreOrderPlan(0.04 ether, 1);
+        preOrderPlans[1] = PreOrderPlan(0.01 ether, 5);
         preOrderPlans[2] = PreOrderPlan(0.07 ether, 2);
         preOrderPlans[3] = PreOrderPlan(0.1 ether, 3);
+
+        maxNFTPerMint = 5;
 
         saleState = SaleState.Inactive;
         mintPrice = 0.06 ether;
         maxSupply = 5000;
     }
 
-    function setSaleState(SaleState _saleState) external onlyOwner {
-        saleState = _saleState;
+    /**
+     * TinyPaw Version Set sale state
+     * External OnlyOwner Access
+     * Modify possibility to mint NFTs and their selling prices
+     * @param _saleState one of Enum{Inactive, PreOrder, Sale}
+     */
+    function setSaleState(uint8 _saleState) external onlyOwner {
+        saleState = SaleState(_saleState);
     }
 
     /**
@@ -80,16 +95,17 @@ abstract contract ERC721Tradable is ContextMixin, ERC721Enumerable, NativeMetaTr
      * External Public Access
      * Only available on Pre Sale
      * @param _to address of the future owner of the token
-     * @param _amount of token to mint
+     * @param _numberOfTokens to get number of token to mint
      */
-    function preOrder(address _to, uint plan) external payable {
+    function preOrder(address _to, uint _numberOfTokens) external payable {
         require(saleState == SaleState.PreOrder, "PreOrder is not allowed");
         require(preOrdersCount < MAX_PREORDERS, "PreOrder ended");
-        require(preOrderPlans[plan].amount != 0, "No such pre order plan");
-        require(preOrderPlans[plan].price == msg.value, "Incorrect ethers value");
+        require(_numberOfTokens != 0, "No such pre order plan: number of token is 0");
+        require(_numberOfTokens <= preOrderPlans[1].amountMax, string(abi.encodePacked("No such pre order plan: Too many tokens ordered: ", Strings.toString(_numberOfTokens), "<=", Strings.toString(preOrderPlans[1].amountMax), "?")));
+        require(preOrderPlans[1].price == msg.value, "Incorrect ethers value ");
 
         preOrdersCount += 1;
-        mintTokens(_to, preOrderPlans[plan].amount);
+        mintNFTs(_to, _numberOfTokens);
     }
 
     /**
@@ -102,7 +118,7 @@ abstract contract ERC721Tradable is ContextMixin, ERC721Enumerable, NativeMetaTr
     function sendTokens(address[] memory _accounts, uint[] memory _amounts) external onlyOwner {
         require(_accounts.length == _amounts.length, "accounts.length == amounts.length");
         for (uint i = 0; i < _accounts.length; i++) {
-            mintTokens(_accounts[i], _amounts[i]);
+            mintNFTs(_accounts[i], _amounts[i]);
         }
     }
 
@@ -110,25 +126,20 @@ abstract contract ERC721Tradable is ContextMixin, ERC721Enumerable, NativeMetaTr
      * TinyPaw Version Mint
      * Internal Access
      * @param _to address of the future owner of the token
-     * @amount _amount of token to mint
+     * @param _amount of token to mint
      */
-    function mintTokens(address account, uint amount) internal maxSupplyCheck(amount) {
-        tokensSupply += amount;
-        _mint(account, TOKEN_ID, amount, "");
-    }
-
-    /**
-     * TinyPaw Version Mint
-     * Internal Access
-     * @param _to address of the future owner of the token
-     * @amount _amount of token to mint
-     */
-    function mintNFTs(address account, uint amount) internal maxSupplyCheck(amount) {
+    function mintNFTs(address _to, uint _amount) internal maxSupplyCheck(_amount) {
         uint mintFrom = mintedNFTs + 1;
-        mintedNFTs += amount;
-        for (uint i = 0; i < amount; i++) {
-            _mint(account, mintFrom + i, 1, "");
+        mintedNFTs += _amount;
+        for (uint i = 0; i < _amount; i++) {
+            _mint(_to, mintFrom + i);
         }
+    }
+
+    modifier maxSupplyCheck(uint _amount)  {
+        require(mintedNFTs + tokensSupply + _amount <= maxSupply, "Tokens supply reached limit");
+        require(_amount <= maxNFTPerMint, string(abi.encodePacked("You cannot mint more than ", Strings.toString(maxNFTPerMint), " tokens")));
+        _;
     }
 
     /**
@@ -136,12 +147,12 @@ abstract contract ERC721Tradable is ContextMixin, ERC721Enumerable, NativeMetaTr
      * External Public Access
      * Only available on Main Sale
      * @param _to address of the future owner of the token
-     * @amount _amount of token to mint
+     * @param _amount of token to mint
      */
-    function mint(uint _amount) external payable {
+    function mint(address _to, uint _amount) external payable {
         require(saleState == SaleState.Sale, "Minting is not allowed");
-        require(mintPrice * amount == msg.value, "Incorrect ethers value");
-        mintNFTs(msg.sender, amount);
+        require(mintPrice * _amount == msg.value, "Incorrect ethers value");
+        mintNFTs(_to, _amount);
     }
 
     /**
