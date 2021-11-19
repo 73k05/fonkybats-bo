@@ -30,7 +30,7 @@ abstract contract ERC721Tradable is ContextMixin, ERC721Enumerable, NativeMetaTr
     //Total amount of NFTs minted
     uint private mintedNFTs;
 
-    uint constant public MAX_NFT_SUPPLY = 15;
+    uint constant public MAX_NFT_SUPPLY = 9999;
 
     // Pre Order MAX config
     uint constant public PREORDERS_MAX_WALLET = 200;
@@ -38,8 +38,8 @@ abstract contract ERC721Tradable is ContextMixin, ERC721Enumerable, NativeMetaTr
     uint constant public PREORDERS_MAX_NFT_PER_WALLET = 5;
 
     // Minting Payment Prices
-    uint constant public PREORDERS_PRICE = 0.004 ether;
-    uint constant public MAIN_SALE_PRICE = 0.005 ether;
+    uint constant public PREORDERS_PRICE = 0.007 ether;
+    uint constant public MAIN_SALE_PRICE = 0.009 ether;
 
     address proxyRegistryAddress;
 
