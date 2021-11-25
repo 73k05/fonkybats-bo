@@ -1,7 +1,7 @@
 {
-  "name": "fonkybats",
+  "name": "fonkybat",
   "version": "1.0.0",
-  "description": "FonkyBats's smart contracts, including ERC721 templates, factories, and the storefront builder.",
+  "description": "FonkyBat's smart contracts, including ERC721 templates, TokenURI IPFS management & Minting tools",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/73k05/fonkybats-nft-bo.git"
