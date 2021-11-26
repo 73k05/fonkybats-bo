@@ -1,4 +1,4 @@
-# fonkybats-nft-bo
+# fonkybats-Contract
 The back office ERC721 contract management code for the project FonkyBats
 
 ## Start contract testing
