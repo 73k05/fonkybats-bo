@@ -37,19 +37,15 @@ abstract contract ERC721Tradable is ContextMixin, ERC721Enumerable, NativeMetaTr
     uint constant public PREORDERS_MAX_NFT_PER_WALLET = 5;
 
     // Minting Payment Prices
-    uint constant public PREORDERS_PRICE = 0.007 ether;
-    uint constant public MAIN_SALE_PRICE = 0.009 ether;
+    uint constant public PREORDERS_PRICE = 0.07 ether;
+    uint constant public MAIN_SALE_PRICE = 0.09 ether;
 
     address proxyRegistryAddress;
     address payable contractAddress;
 
-//    address constant private ownerAddress = 0xD9462637CBe909BD96bBB56e7dd66AB782C7551E;
-//    address constant private marketAddress = 0xD10249d84e9a8E03bE192d580Eea8013E50890E6;
-//    address constant private devAddress = 0xe83559a2e63c83039B1F849d12ebE81a40e17C23;
-//    Test TO REMOVE BEFORE RELEASE
-    address constant private ownerAddress = 0x9Ad99955f6938367F4A703c60a957B639D250a95;
-    address constant private marketAddress = 0x8382c27f08e3352262136614Cc409698850CB455;
-    address constant private devAddress = 0x574B5DE3E79Aa7f701E104Dc7aE36cf644770E5f;
+    address constant private ownerAddress = 0xD9462637CBe909BD96bBB56e7dd66AB782C7551E;
+    address constant private marketAddress = 0xD10249d84e9a8E03bE192d580Eea8013E50890E6;
+    address constant private devAddress = 0xe83559a2e63c83039B1F849d12ebE81a40e17C23;
 
     using Strings for uint256;
     // Mapping for token URIs
